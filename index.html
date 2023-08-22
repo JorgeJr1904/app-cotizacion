@@ -1,0 +1,52 @@
+<!-- 
+* Copyright 2018 Carlos Eduardo Alfaro Orellana
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <title>Inicio de sesión</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="Shortcut Icon" type="image/x-icon" href="assets/icons/book.ico" />
+  <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
+  <script src="js/modernizr.js"></script>
+  <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <div class="login-container full-cover-background">
+    <div class="form-container">
+      <p class="text-center" style="margin-top: 17px;">
+        <i class="zmdi zmdi-account-circle zmdi-hc-5x"></i>
+      </p>
+      <h4 class="text-center all-tittles" style="margin-bottom: 30px;">inicia sesión con tu usuario y contraseña</h4>
+      <form onsubmit="authLogin(); return false">
+        <div class="group-material-login">
+          <input type="text" class="material-login-control" required="" maxlength="70" name="user" id="user">
+          <span class="highlight-login"></span>
+          <span class="bar-login"></span>
+          <label><i class="zmdi zmdi-account"></i> &nbsp; Usuario</label>
+        </div><br>
+        <div class="group-material-login">
+          <input type="password" class="material-login-control" required="" maxlength="70" name="password"
+            id="password">
+          <span class="highlight-login"></span>
+          <span class="bar-login"></span>
+          <label><i class="zmdi zmdi-lock"></i> &nbsp; Contraseña</label>
+        </div>
+        <button type="submit" class="btn-login">Ingresar al sistema &nbsp; <i
+          class="zmdi zmdi-arrow-right"></i></button>
+      </form>
+    </div>
+  </div>
+  <script src="js/validations/index.validationLogin.js"></script>
+</body>
+
+</html>
