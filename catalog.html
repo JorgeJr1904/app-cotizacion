@@ -3,7 +3,9 @@
 -->
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <script src="js/validations/LoginAuthorization.js"></script>
     <title>Catálogo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,25 +25,22 @@
     <script src="js/main.js"></script>
     <script src="js/validations/generatedNavBar.js"></script>
 </head>
-<body>
-    <div id="menu-container"></div>
+
+<body onload="loadLateralMenu()">
+    <div id="lMenu-container">
+    </div>
     <div class="content-page-container full-reset custom-scroll-containers">
         <nav class="navbar-user-top full-reset">
             <ul class="list-unstyled full-reset">
                 <figure>
-                   <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
+                    <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
                 </figure>
                 <li style="color:#fff; cursor:default;">
-                    <span class="all-tittles">Admin Name</span>
+                    <span class="all-tittles" id="userNameSpan"></span>
                 </li>
-                <li  class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom" title="Salir del sistema">
+                <li class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom"
+                    title="Salir del sistema">
                     <i class="zmdi zmdi-power"></i>
-                </li>
-                <li  class="tooltips-general search-book-button" data-href="searchbook.html" data-placement="bottom" title="Buscar libro">
-                    <i class="zmdi zmdi-search"></i>
-                </li>
-                <li  class="tooltips-general btn-help" data-placement="bottom" title="Ayuda">
-                    <i class="zmdi zmdi-help-outline zmdi-hc-fw"></i>
                 </li>
                 <li class="mobile-menu-button visible-xs" style="float: left !important;">
                     <i class="zmdi zmdi-menu"></i>
@@ -53,132 +52,47 @@
         </nav>
         <div class="container">
             <div class="page-header">
-              <h1 class="all-tittles">Sistema bibliotecario <small>Catálogo de libros</small></h1>
+                <h1 class="all-tittles">Sistema de cotizaciones <small>lista de Cotizaciones</small></h1>
             </div>
         </div>
-         <div class="container-fluid"  style="margin: 40px 0;">
+        <div class="container-fluid" style="margin: 40px 0;">
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-3">
-                    <img src="assets/img/checklist.png" alt="pdf" class="img-responsive center-box" style="max-width: 110px;">
+                    <img src="assets/img/checklist.png" alt="pdf" class="img-responsive center-box"
+                        style="max-width: 110px;">
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
-                    Bienvenido al catálogo, selecciona una categoría de la lista para empezar, si deseas buscar un libro por nombre o título has click en el icono &nbsp; <i class="zmdi zmdi-search"></i> &nbsp; que se encuentra en la barra superior
+                    Bienvenido al catálogo, aqui puedes encontrar todas las cotizaciones realizadas por ti
                 </div>
             </div>
         </div>
         <div class="container-fluid" style="margin: 0 0 50px 0;">
-            <h2 class="text-center" style="margin: 0 0 25px 0;">Categorías</h2>
+            <h2 class="text-center" style="margin: 0 0 25px 0;">Cotizaciones</h2>
             <ul class="list-unstyled text-center list-catalog-container">
                 <li class="list-catalog">Categoría</li>
-                <li class="list-catalog">Categoría</li>
-                <li class="list-catalog">Categoría</li>
             </ul>
-        </div>
-        <div class="container-fluid">
             <div class="media media-hover">
                 <div class="media-left media-middle">
-                    <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del libro">
-                      <img class="media-object" src="assets/img/book.png" alt="Libro" width="48" height="48">
-                    </a>
+                    <img class="media-object" src="assets/img/pdf.png" alt="Libro" width="48" height="48">
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">1 - Título</h4>
                     <div class="pull-left">
                         <strong>Autor<br>
-                        <strong>Año<br>
+                            <strong>Año<br>
                     </div>
                     <p class="text-center pull-right">
-                        <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Más información</a>
+                        <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i
+                                class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Descargar</a>
                     </p>
                 </div>
             </div>
-            <div class="media media-hover">
-                <div class="media-left media-middle">
-                    <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del libro">
-                      <img class="media-object" src="assets/img/book.png" alt="Libro" width="48" height="48">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">2 - Título</h4>
-                    <div class="pull-left">
-                        <strong>Autor<br>
-                        <strong>Año<br>
-                    </div>
-                    <p class="text-center pull-right">
-                        <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Más información</a>
-                    </p>
-                </div>
-            </div>
-            <div class="media media-hover">
-                <div class="media-left media-middle">
-                    <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del libro">
-                      <img class="media-object" src="assets/img/book.png" alt="Libro" width="48" height="48">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">3 - Título</h4>
-                    <div class="pull-left">
-                        <strong>Autor<br>
-                        <strong>Año<br>
-                    </div>
-                    <p class="text-center pull-right">
-                        <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Más información</a>
-                    </p>
-                </div>
-            </div>
-            <div class="media media-hover">
-                <div class="media-left media-middle">
-                    <a href="#!" class="tooltips-general" data-toggle="tooltip" data-placement="right" title="Más información del libro">
-                      <img class="media-object" src="assets/img/book.png" alt="Libro" width="48" height="48">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">4 - Título</h4>
-                    <div class="pull-left">
-                        <strong>Autor<br>
-                        <strong>Año<br>
-                    </div>
-                    <p class="text-center pull-right">
-                        <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Más información</a>
-                    </p>
-                </div>
-            </div>
+            <ul class="list-unstyled text-center list-catalog-container">
+                <li class="list-catalog">Categoría</li>
+            </ul>
         </div>
-        <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center all-tittles">ayuda del sistema</h4>
-                </div>
-                <div class="modal-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore dignissimos qui molestias ipsum officiis unde aliquid consequatur, accusamus delectus asperiores sunt. Quibusdam veniam ipsa accusamus error. Animi mollitia corporis iusto.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> &nbsp; De acuerdo</button>
-                </div>
-            </div>
-          </div>
-        </div>
-        <footer class="footer full-reset">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                        <h4 class="all-tittles">Acerca de</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam quam dicta et, ipsum quo. Est saepe deserunt, adipisci eos id cum, ducimus rem, dolores enim laudantium eum repudiandae temporibus sapiente.
-                        </p>
-                    </div>
-                    <div class="col-xs-12 col-sm-6">
-                        <h4 class="all-tittles">Desarrollador</h4>
-                        <ul class="list-unstyled">
-                            <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Carlos Alfaro <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyright full-reset all-tittles">© 2018 Carlos Alfaro</div>
-        </footer>
     </div>
+    <script src="js/validations/getStoredUserName.js"></script>
 </body>
+
 </html>

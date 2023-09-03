@@ -16,8 +16,8 @@ async function authLogin(){
     fetch("http://localhost:8080/api/v1/auth/login", requestOptions)
     .then(response => response.json())
     .then(data=>{
-      console.log(data.message);
-      validAuth(data.message);
+      console.log(data);
+      validAuth(data);
     })
     .catch(error => {
       console.error(error)
@@ -25,13 +25,25 @@ async function authLogin(){
 }
 
 function validAuth(data){
-  if(data == "Login Correcto"){
-    window.location.href = "home.html"
-  }else if(data == "Nombre de Usuario Incorrecto"){
-    Swal.fire("Nombre de Usuario incorrecto", "Vuelve a intentar Nuevamente", "error")
-  }else if(data == "Usuario Deshabilitado"){
-    Swal.fire("Usuario deshabilitado", "Consulta con tu administrador para volver a habilitar el usuario", "warning")
-  }else if(data == "Contrasenia Incorrecta"){
-    Swal.fire("Contraseña Incorrecta", "Vuelve a intentarlo", "error")
+  let password = document.getElementById("password");
+  let user = document.getElementById("user");
+  if(data.message == "Login Correcto"){
+    localStorage.token = data.token;
+    localStorage.userName = data.userName;
+    localStorage.idRole = data.idRole;
+    window.location.href = "quote.html"
+  }else if(data.message == "Nombre de Usuario Incorrecto"){
+    alert("Nombre de Usuario y/o contraseña incorrecta", "Vuelve a intentar Nuevamente", "error")
+    user.value = "";
+    password.value = "";
+  }else if(data.message == "Usuario Deshabilitado"){
+    alert("Usuario Deshabilitado, Porfavor Comuniquese con su encargado")
+    user.value = "";
+    password.value = "";
+  }else if(data.message == "Contrasenia Incorrecta"){
+    alert("Contraseña Incorrecta Vuelva a intetarlo Nuevamente");
+    user.value = "";
+    password.value = "";
   }
+
 }

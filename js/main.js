@@ -1,100 +1,106 @@
-$(document).ready(function(){
-    $('.tooltips-general').tooltip('hide');
-    $('.mobile-menu-button').on('click', function(){
-        var mobileMenu=$('.navbar-lateral');	
-        if(mobileMenu.css('display')=='none'){
+$(document).ready(function () {
+    $(".tooltips-general").tooltip("hide");
+    $(".mobile-menu-button").on("click", function () {
+        var mobileMenu = $(".navbar-lateral");
+        if (mobileMenu.css("display") == "none") {
             mobileMenu.fadeIn(300);
-        }else{
+        } else {
             mobileMenu.fadeOut(300);
         }
     });
-    $('.desktop-menu-button').on('click', function(e){
+    $(".desktop-menu-button").on("click", function (e) {
         e.preventDefault();
-        var NavLateral=$('.navbar-lateral'); 
-        var ContentPage=$('.content-page-container');   
-        if(NavLateral.hasClass('desktopMenu')){
-            NavLateral.removeClass('desktopMenu');
-            ContentPage.removeClass('desktopMenu');
-        }else{
-            NavLateral.addClass('desktopMenu');
-            ContentPage.addClass('desktopMenu');
+        var NavLateral = $(".navbar-lateral");
+        var ContentPage = $(".content-page-container");
+        if (NavLateral.hasClass("desktopMenu")) {
+            NavLateral.removeClass("desktopMenu");
+            ContentPage.removeClass("desktopMenu");
+        } else {
+            NavLateral.addClass("desktopMenu");
+            ContentPage.addClass("desktopMenu");
         }
     });
-    $('.dropdown-menu-button').on('click', function(e){
+    $(".dropdown-menu-button").on("click", function (e) {
         e.preventDefault();
-        var icon=$(this).children('.icon-sub-menu');
-        if(icon.hasClass('zmdi-chevron-down')){
-            icon.removeClass('zmdi-chevron-down').addClass('zmdi-chevron-up');
-            $(this).addClass('dropdown-menu-button-active');
-        }else{
-            icon.removeClass('zmdi-chevron-up').addClass('zmdi-chevron-down');
-            $(this).removeClass('dropdown-menu-button-active');
+        var icon = $(this).children(".icon-sub-menu");
+        if (icon.hasClass("zmdi-chevron-down")) {
+            icon.removeClass("zmdi-chevron-down").addClass("zmdi-chevron-up");
+            $(this).addClass("dropdown-menu-button-active");
+        } else {
+            icon.removeClass("zmdi-chevron-up").addClass("zmdi-chevron-down");
+            $(this).removeClass("dropdown-menu-button-active");
         }
-        
-        var dropMenu=$(this).next('ul');
-        dropMenu.slideToggle('slow');
-    });
-    $('.exit-system-button').on('click', function(e){
-        e.preventDefault();
-        var LinkExitSystem=$(this).attr("data-href");
-        swal({
-            title: "¿Estás seguro?",
-            text: "Quieres salir del sistema y cerrar la sesión actual",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#5cb85c",
-            confirmButtonText: "Si, salir",
-            cancelButtonText: "No, cancelar",
-            animation: "slide-from-top",
-            closeOnConfirm: false 
-        },function(){
-            window.location=LinkExitSystem; 
-        });  
-    });
-    $('.search-book-button').click(function(e){
-        e.preventDefault();
-        var LinkSearchBook=$(this).attr("data-href");
-        swal({
-           title: "¿Qué libro estás buscando?",
-           text: "Por favor escribe el nombre del libro",
-           type: "input",   
-           showCancelButton: true,
-           closeOnConfirm: false,
-           animation: "slide-from-top",
-           cancelButtonText: "Cancelar",
-           confirmButtonText: "Buscar",
-           confirmButtonColor: "#3598D9",
-           inputPlaceholder: "Escribe aquí el nombre de libro" }, 
-      function(inputValue){
-           if (inputValue === false) return false;  
 
-           if (inputValue === "") {
-               swal.showInputError("Debes escribir el nombre del libro");     
-               return false;   
-           } 
-            window.location=LinkSearchBook+"?bookName="+inputValue;
-       });
+        var dropMenu = $(this).next("ul");
+        dropMenu.slideToggle("slow");
     });
-    $('.btn-help').on('click', function(){
-        $('#ModalHelp').modal({
+    $(".exit-system-button").on("click", function (e) {
+        var LinkExitSystem = $(this).attr("data-href");
+        swal(
+            {
+                title: "¿Estás seguro?",
+                text: "Quieres salir del sistema y cerrar la sesión actual",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#5cb85c",
+                confirmButtonText: "Si, salir",
+                cancelButtonText: "No, cancelar",
+                animation: "slide-from-top",
+                closeOnConfirm: false,
+            },
+            function () {
+                localStorage.clear();
+                window.location = LinkExitSystem;
+            }
+        );
+    });
+    $(".search-book-button").click(function (e) {
+        e.preventDefault();
+        var LinkSearchBook = $(this).attr("data-href");
+        swal(
+            {
+                title: "¿Qué libro estás buscando?",
+                text: "Por favor escribe el nombre del libro",
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                animation: "slide-from-top",
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Buscar",
+                confirmButtonColor: "#3598D9",
+                inputPlaceholder: "Escribe aquí el nombre de libro",
+            },
+            function (inputValue) {
+                if (inputValue === false) return false;
+
+                if (inputValue === "") {
+                    swal.showInputError("Debes escribir el nombre del libro");
+                    return false;
+                }
+                window.location = LinkSearchBook + "?bookName=" + inputValue;
+            }
+        );
+    });
+    $(".btn-help").on("click", function () {
+        $("#ModalHelp").modal({
             show: true,
-            backdrop: "static"
+            backdrop: "static",
         });
     });
 });
-(function($){
-    $(window).load(function(){
+(function ($) {
+    $(window).load(function () {
         $(".nav-lateral-scroll").mCustomScrollbar({
-            theme:"light-thin",
+            theme: "light-thin",
             scrollbarPosition: "inside",
             autoHideScrollbar: true,
-            scrollButtons:{ enable: true }
+            scrollButtons: { enable: true },
         });
         $(".custom-scroll-containers").mCustomScrollbar({
-            theme:"dark-thin",
+            theme: "dark-thin",
             scrollbarPosition: "inside",
             autoHideScrollbar: true,
-            scrollButtons:{ enable: true }
+            scrollButtons: { enable: true },
         });
     });
 })(jQuery);

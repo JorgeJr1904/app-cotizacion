@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <script src="js/validations/LoginAuthorization.js"></script>
+    <title>Administradores</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="Shortcut Icon" type="image/x-icon" href="assets/icons/book.ico" />
+    <script src="js/sweet-alert.min.js"></script>
+    <link rel="stylesheet" href="css/sweet-alert.css" />
+    <link rel="stylesheet" href="css/material-design-iconic-font.min.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        window.jQuery ||
+            document.write('<script src="js/jquery-1.11.2.min.js"><\/script>');
+    </script>
+    <script src="js/modernizr.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/validations/generatedNavBar.js"></script>
+</head>
+
+<body onload="loadLateralMenu()">
+    <div id="lMenu-container"></div>
+    <div class="content-page-container full-reset custom-scroll-containers">
+        <nav class="navbar-user-top full-reset">
+            <ul class="list-unstyled full-reset">
+                <figure>
+                    <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box" />
+                </figure>
+                <li style="color: #fff; cursor: default">
+                    <span class="all-tittles" id="userNameSpan"></span>
+                </li>
+                <li class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom"
+                    title="Salir del sistema">
+                    <i class="zmdi zmdi-power"></i>
+                </li>
+                <li class="mobile-menu-button visible-xs" style="float: left !important">
+                    <i class="zmdi zmdi-menu"></i>
+                </li>
+                <li class="desktop-menu-button hidden-xs" style="float: left !important">
+                    <i class="zmdi zmdi-swap"></i>
+                </li>
+            </ul>
+        </nav>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="all-tittles">
+                    sistema de cotizaciones <small>Administración de Usuarios</small>
+                </h1>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <ul class="nav nav-tabs nav-justified" style="font-size: 17px">
+                <li role="presentation" class="active">
+                    <a href="user.html">Usuarios</a>
+                </li>
+                <li role="presentation"><a href="role.html">Roles</a></li>
+                <!--<li role="presentation"><a href="student.html">Estudiantes</a></li>
+                <li role="presentation"><a href="personal.html">Personal administrativo</a></li>-->
+            </ul>
+        </div>
+        <div class="container-fluid" style="margin: 50px 0">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <img src="assets/img/user01.png" alt="user" class="img-responsive center-box"
+                        style="max-width: 110px" />
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                    Bienvenido a la sección para registrar nuevos usuarios al sistema,
+                    debes de llenar todos los campos del siguiente formulario para
+                    registrar un usuario
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 lead">
+                    <ol class="breadcrumb">
+                        <li class="active">Nuevo usuario</li>
+                        <li><a href="listUser.html">Listado de usuarios</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container-flat-form">
+                <div class="title-flat-form title-flat-blue">
+                    Registrar un nuevo usuario
+                </div>
+                <form class="form-padding" id="form-user" onsubmit="crudUser(); return false">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <legend>
+                                <i class="zmdi zmdi-account-box"></i> &nbsp; Datos básicos
+                            </legend>
+                            <br />
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="group-material">
+                                <input name="txt_name" id="txt_name" type="text"
+                                    class="material-control tooltips-general" placeholder="Nombres" required=""
+                                    maxlength="60" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                    data-placement="top" title="Escribe el nombre del usuario" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Nombres</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="group-material">
+                                <input name="txt_lastName" id="txt_lastName" type="text"
+                                    class="material-control tooltips-general" placeholder="Apellidos" maxlength="60"
+                                    data-toggle="tooltip" data-placement="top" title="Escribe apellidos del usuario" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Apellidos</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="group-material">
+                                <span>Rol del Usuario</span>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <select name="txt_role" id="txt_role" class="material-control tooltips-general"
+                                    maxlength="60" data-toggle="tooltip" data-placement="top"
+                                    title="Selecciona un rol al cual quieres asignarle al usuario">
+                                <option value="" disabled selected>Elige un rol</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <legend>
+                                <i class="zmdi zmdi-lock"></i> &nbsp; Datos de la cuenta
+                            </legend>
+                            <br />
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="group-material">
+                                <input name="txt_userName" id="txt_userName" type="text"
+                                    class="material-control tooltips-general input-check-user"
+                                    placeholder="Nombre de usuario" required="" maxlength="20"
+                                    pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{1,20}" data-toggle="tooltip" data-placement="top"
+                                    title="Escribe un nombre de usuario sin espacios, que servira para iniciar sesión" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Nombre de usuario</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6" id="div_pass">
+                            <div class="group-material">
+                                <input name="txt_pass" id="txt_pass" type="password"
+                                    class="material-control tooltips-general" placeholder="Contraseña" required
+                                    maxlength="200" data-toggle="tooltip" data-placement="top"
+                                    title="Escribe una contraseña" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Contraseña</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6" id="div_repass">
+                            <div class="group-material">
+                                <input name="txt_repass" id="txt_repass" type="password"
+                                    class="material-control tooltips-general" placeholder="Repite la contraseña"
+                                    required="" maxlength="200" data-toggle="tooltip" data-placement="top"
+                                    title="Repite la contraseña" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Repetir contraseña</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <p class="text-center">
+                                <button id="btn_clean" type="reset" class="btn btn-info" style="margin-right: 20px">
+                                    <i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar
+                                </button>
+                                <button id="btn_save" type="submit" class="btn btn-primary">
+                                    <i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar
+                                </button>
+                                <button style="display: none;" id="btn_update" type="submit" class="btn btn-success">
+                                    <i class="zmdi zmdi-refresh-sync"></i> &nbsp;&nbsp; Actualizar
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <div class="footer-copyright full-reset all-tittles">
+                © 2023 Corporacion DISATEL S.A
+            </div>
+        </footer>
+    </div>
+    <script src="js/validations/users.js"></script>
+    <script src="js/validations/getStoredUserName.js"></script>
+</body>
+
+</html>
