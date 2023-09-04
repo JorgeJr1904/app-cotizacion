@@ -1,5 +1,5 @@
 //tabla de listado de Usuarios
-async function getUsers() {
+async function getListUsers() {
     const userTable = document.getElementById("userTable");
     let count = 1;
 
@@ -27,16 +27,54 @@ async function getUsers() {
                     <button onclick="btnUpdateUser(${user.id})" name="actualizar" class="btn btn-success"><i class="zmdi zmdi-refresh"></i></button>
                 </div>
                 <div class="div-table-cell">
-                    <button class="btn btn-danger"><i class="zmdi zmdi-delete"></i></button>
-                </div>
-                <div class="div-table-cell">
-                    <button class="btn btn-warning"><i class="zmdi zmdi-arrow-split"></i></button>
-                </div>
-            `;
+                    <button id="btnOpenModal" onclick="modalPass(${user.id})" name="actualizarPass" class="btn btn-warning"><i class="zmdi zmdi-arrow-split"></i></button>
+                </div>`;
 
             userTable.appendChild(row);
             count++;
         }
+    } catch (error) {
+        throw error;
+    }
+}
+
+//this function change the id Role with the Role Name
+async function idToRoleName(idRole) {
+    try {
+        const response = await fetch(
+            "http://localhost:8080/api/role/getRoleName/" + idRole
+        );
+        const data = await response.json();
+        return data.roleName;
+    } catch (error) {
+        throw error;
+    }
+}
+
+//This function create a select for every role was create
+async function inputRoles() {
+    const selectRole = document.getElementById("txt_role");
+
+    try {
+        const data = await getRoles();
+
+        data.forEach((role) => {
+            const option = document.createElement("option");
+            option.value = role.idRole;
+            option.textContent = role.roleName;
+            selectRole.appendChild(option);
+        });
+    } catch (error) {
+        throw error;
+    }
+}
+
+// This function is to mostrate every role was create
+async function getRoles() {
+    try {
+        const response = await fetch("http://localhost:8080/api/role");
+        const data = await response.json();
+        return data;
     } catch (error) {
         throw error;
     }
@@ -61,11 +99,19 @@ function reqOption(method, data) {
         method: method, // Establece el método de la solicitud como POST
         headers: {
             // Define los encabezados de la solicitud
-            "Content-Type": "application/json", // Indica que estás enviando datos en formato JSON
+            "Content-Type": "application/json",
+            "Authorization": localStorage.token,
         },
         body: JSON.stringify(data), // Convierte el objeto dataToSend a una cadena JSON y establece el cuerpo de la solicitud
     };
     return requestOptions;
+}
+
+
+//CRUD USERS---------------------------------------------------------------------------------------------------------------------------------------------------
+function btnEventUser(){
+    document.getElementById("btn_save").onclick = createUser;
+    document.getElementById("btn_update").onclick = updateUser;
 }
 
 async function createUser() {
@@ -83,7 +129,7 @@ async function createUser() {
                         "La contraseña no es segura. Debe tener almenos 8 letras, una mayuscula, una minuscula y un caracter especial"
                     );
                 } else if (data === "true") {
-                    alert("Contraseña creada correctamente");
+                    createUserSucces();
                 } else {
                     alert("Error inesperado porfavor vuelve a intentarlo");
                 }
@@ -97,18 +143,8 @@ function updateUser(){
     console.log("true");
 }
 
-//this function change the id Role with the Role Name
-async function idToRoleName(idRole) {
-    try {
-        const response = await fetch(
-            "http://localhost:8080/api/role/getRoleName/" + idRole
-        );
-        const data = await response.json();
-        return data.roleName;
-    } catch (error) {
-        throw error;
-    }
-}
+
+//-----------------------------CRUD LIST USERS ------------------------------------------------------------------------------------------------------------
 
 function enableDisableUser(id) {
     const requestOptions = {
@@ -136,38 +172,41 @@ function enableDisableUser(id) {
         });
 }
 
+
+
 function btnUpdateUser(idUser) {
     window.location.href = "user.html?hideButtons=true&id=" + idUser;
 }
 
-// This function is to mostrate every role was create
-async function getRoles() {
-    try {
-        const response = await fetch("http://localhost:8080/api/role");
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        throw error;
+let idUserModal = 0;
+async function updatePass(){
+    const password = document.getElementById("txt_passModal").value;
+    const repass1 = document.getElementById("txt_repassModal").value;
+    const user = {
+        "password": password,
     }
+    if (password === repass1){
+        const quoteResponse = await fetch("http://localhost:8080/api/user/update/password/" + idUserModal, reqOption("PATCH", user));
+        const dataQuote = await quoteResponse.text();
+        if(dataQuote === "true"){
+            updatePassSucces();
+        }
+        else{
+            updatePassFail();
+        }
+    }else{
+        alert('Las contraseñas no coinciden');
+    }
+    
 }
 
-//This function create a select for every role was create
-async function inputRoles() {
-    const selectRole = document.getElementById("txt_role");
-
-    try {
-        const data = await getRoles();
-
-        data.forEach((role) => {
-            const option = document.createElement("option");
-            option.value = role.idRole;
-            option.textContent = role.roleName;
-            selectRole.appendChild(option);
-        });
-    } catch (error) {
-        throw error;
-    }
+function eventListUser(){
+    document.getElementById("btn_modalUpdatepass").onclick = updatePass();
 }
+
+
+
+// FINISH CRUD LIST USER --------------------------------------------------------------------------------------------------------------
 
 function hideButtons() {
     const cleanButton = document.getElementById("btn_clean");
@@ -193,6 +232,7 @@ function hideButtons() {
     }
 }
 
+// Get the user data to update an user
 async function inputUser() {
     hideButtons();
     const urlParams = new URLSearchParams(window.location.search);
@@ -213,14 +253,11 @@ async function inputUser() {
     }
 }
 
-function crudUser(){
-    document.getElementById("btn_save").onclick = createUser;
-    document.getElementById("btn_update").onclick = updateUser;
-}
+
 
 function getters() {
     if (window.location.pathname.includes("listUser.html")) {
-        getUsers();
+        getListUsers();
     }
     if (window.location.pathname.includes("user.html")) {
         inputRoles();
@@ -229,3 +266,79 @@ function getters() {
 }
 
 document.addEventListener("DOMContentLoaded", getters());
+
+
+//Sweet alerts------------------------------------------------------------------------------------------------------
+function createUserSucces() {
+    swal({
+        title: "Usuario Creado con exito!!",
+        text: "Felicidades el usuario fue creado con exito",
+        type: "success",
+        showCancelButton: false,
+        confirmButtonColor: "green",
+        confirmButtonText: "Ok",
+        closeOnConfirm: true,
+    }, function (isConfirm){
+        if (isConfirm) {
+            location.reload();}
+            else{
+                window.location.heref = "user.html";
+            }
+        
+    });
+}
+
+
+function modalPass(id) {
+    // Cuando se hace clic en el botón "Abrir Modal"
+        $("#myModal").modal("show");
+        idUserModal = id;
+
+    // Cuando se hace clic fuera del modal, ciérralo
+    $(document).on("click", function (event) {
+        if (
+            $(event.target).hasClass("modal") &&
+            !$(event.target).hasClass("modal-dialog")
+        ) {
+            $("#myModal").modal("hide");
+        }
+    });
+};
+
+function updatePassSucces() {
+    swal({
+        title: "Contraseña Modificada con exito!!",
+        text: "Contraseña modificada con exito",
+        type: "success",
+        showCancelButton: false,
+        confirmButtonColor: "green",
+        confirmButtonText: "Ok",
+        closeOnConfirm: true,
+    }, function (isConfirm){
+        if (isConfirm) {
+            location.reload();}
+            else{
+                location.reload();
+            }
+        
+    });
+}
+
+function updatePassFail() {
+    swal({
+        title: "Error al cambiar contraseña",
+        text: "Porfavor intentalo de nuevo",
+        type: "error",
+        showCancelButton: false,
+        confirmButtonColor: "green",
+        confirmButtonText: "Ok",
+        closeOnConfirm: true,
+    }, function (isConfirm){
+        if (isConfirm) {
+            location.reload();}
+            else{
+                location.reload();
+            }
+        
+    });
+}
