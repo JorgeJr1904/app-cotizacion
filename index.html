@@ -3,23 +3,23 @@
 
 <head>
   <title>Inicio de sesión</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="Shortcut Icon" type="image/x-icon" href="assets/icons/book.ico" />
-    <script src="js/sweet-alert.min.js"></script>
-    <link rel="stylesheet" href="css/sweet-alert.css">
-    <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
-    <script src="js/modernizr.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/validations/index.validationLogin.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="Shortcut Icon" type="image/x-icon" href="assets/icons/book.ico" />
+  <script src="js/sweet-alert.min.js"></script>
+  <link rel="stylesheet" href="css/sweet-alert.css">
+  <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
+  <script src="js/modernizr.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/validations/index.validationLogin.js"></script>
 </head>
 
 <body>
@@ -45,10 +45,41 @@
           <label><i class="zmdi zmdi-lock"></i> &nbsp; Contraseña</label>
         </div>
         <button type="submit" class="btn-login">Ingresar al sistema &nbsp; <i
-          class="zmdi zmdi-arrow-right"></i></button>
+            class="zmdi zmdi-arrow-right"></i></button>
       </form>
     </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      existLogin();
+    });
+
+    function reqToken(method, data) {
+    const requestOptions = {
+        method: method, // Establece el método de la solicitud como POST
+        headers: {
+            // Define los encabezados de la solicitud
+            "Accept": "application/json",
+            "Content-Type": "application/json",// Indica que estás enviando datos en formato JSON
+            "Authorization": localStorage.token
+        },
+        body: JSON.stringify(data), // Convierte el objeto dataToSend a una cadena JSON y establece el cuerpo de la solicitud
+    };
+    return requestOptions;
+}
+
+    async function existLogin() {
+      const response = await fetch("http://localhost:8080/api/validToken/v1/validation", reqToken("POST", ""));
+      const data = await response.text();
+      if (data === "true") {
+        window.location.href = "quote.html"
+      } else {
+        localStorage.clear();
+      }
+    }
+  </script>
+
 </body>
 
 </html>

@@ -107,7 +107,6 @@ function reqOption(method, data) {
     return requestOptions;
 }
 
-
 //CRUD USERS---------------------------------------------------------------------------------------------------------------------------------------------------
 function btnEventUser(){
     document.getElementById("btn_save").onclick = createUser;
@@ -139,12 +138,12 @@ async function createUser() {
     }
 }
 
-function updateUser(){
-    console.log("true");
-}
-
 
 //-----------------------------CRUD LIST USERS ------------------------------------------------------------------------------------------------------------
+
+function btnUpdateUser(idUser) {
+    window.location.href = "user.html?hideButtons=true&id=" + idUser;
+}
 
 function enableDisableUser(id) {
     const requestOptions = {
@@ -172,12 +171,6 @@ function enableDisableUser(id) {
         });
 }
 
-
-
-function btnUpdateUser(idUser) {
-    window.location.href = "user.html?hideButtons=true&id=" + idUser;
-}
-
 let idUserModal = 0;
 async function updatePass(){
     const password = document.getElementById("txt_passModal").value;
@@ -198,6 +191,25 @@ async function updatePass(){
         alert('Las contraseñas no coinciden');
     }
     
+}
+
+async function updateUser(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("id");
+
+    const user = getUserForm();
+
+    const quoteResponse = await fetch("http://localhost:8080/api/user/update/" + userId, reqOption("PUT", user));
+    const data = await quoteResponse.text();
+    if(data === "user already exists"){
+        updateExistUserError(user.userName);
+    }else if(data === "true"){
+        updateUserSucces();
+    }else if(data === "false"){
+        updateUserError();
+    }else{
+        updateUserError();
+    }
 }
 
 function eventListUser(){
@@ -341,4 +353,54 @@ function updatePassFail() {
             }
         
     });
+}
+
+function updateUserSucces() {
+    swal({
+        title: "Usuario Actualizado con exito!!",
+        text: "Porfavor indicar al usuario que cierre e inicie sesion",
+        type: "success",
+        showCancelButton: false,
+        confirmButtonColor: "green",
+        confirmButtonText: "Ok",
+        closeOnConfirm: true,
+    }, function (isConfirm){
+        if (isConfirm) {
+            window.location.href = "listUser.html";}
+            else{
+                window.location.href = "listUser.html";
+            }
+        
+    });
+}
+
+function updateUserError() {
+    swal({
+        title: "Error al actualizar el usuario",
+        text: "Porfavor intentar nuevamente",
+        type: "error",
+        showCancelButton: false,
+        confirmButtonColor: "green",
+        confirmButtonText: "Ok",
+        closeOnConfirm: true,
+    }, function (isConfirm){
+        if (isConfirm) {
+            window.location.heref = "listUser.html";}
+            else{
+                window.location.heref = "listUser.html";
+            }
+        
+    });
+}
+
+function updateExistUserError(user) {
+    swal({
+        title: "Error al actualizar el usuario",
+        text: "Usuario " + user + " ya existe",
+        type: "error",
+        showCancelButton: false,
+        confirmButtonColor: "green",
+        confirmButtonText: "Ok",
+        closeOnConfirm: true,
+    })
 }

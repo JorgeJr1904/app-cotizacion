@@ -1,4 +1,4 @@
-function reqOptionValid(method, data) {
+function reqOptionValid(method, data = null) {
     const requestOptions = {
         method: method, // Establece el método de la solicitud como POST
         headers: {
@@ -7,8 +7,11 @@ function reqOptionValid(method, data) {
             "Content-Type": "application/json",// Indica que estás enviando datos en formato JSON
             "Authorization": localStorage.token
         },
-        body: JSON.stringify(data), // Convierte el objeto dataToSend a una cadena JSON y establece el cuerpo de la solicitud
     };
+    
+    if (data !== null) {
+        requestOptions.body = JSON.stringify(data);
+    }
     return requestOptions;
 }
 

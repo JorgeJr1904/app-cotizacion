@@ -2,7 +2,7 @@
 function loadLateralMenu() {
     const menuContainer = document.getElementById('lMenu-container');
 
-    fetch('./../../lateralMenu.html')  // Cambia 'menu.html' por la ruta correcta de tu archivo
+    fetch('./../../lateralMenu.html')
         .then(response => response.text())
         .then(data => {
             menuContainer.innerHTML = data;
