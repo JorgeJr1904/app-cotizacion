@@ -70,26 +70,6 @@ function newQuote() {
     cotizacionIndex++;
 };
 
-
-function saveQuote() {
-    swal(
-        {
-            title: "¿Guardar Cotizacion?",
-            text: "Estas Seguro que deseas guardar la cotizacion?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#5cb85c",
-            confirmButtonText: "Si, Guardar",
-            cancelButtonText: "No, aun me falta",
-            animation: "slide-from-top",
-            closeOnConfirm: true,
-        },
-        function () {
-            saveDataDB()
-        }
-    );
-};
-
 function valorTotal() {
     let valorTotal2 = 0;
     for (let i = 1; i < cotizacionIndex; i++) {
@@ -156,6 +136,8 @@ async function saveDataDB() {
         }else{
             createQuoteFail();
         }
+    }else{
+        createQuoteFail();
     }
 }
 
@@ -214,3 +196,22 @@ function createQuoteFail() {
         closeOnConfirm: true,
     });
 }
+
+function saveQuote() {
+    swal(
+        {
+            title: "¿Guardar Cotizacion?",
+            text: "Estas Seguro que deseas guardar la cotizacion?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#5cb85c",
+            confirmButtonText: "Si, Guardar",
+            cancelButtonText: "No, aun me falta",
+            animation: "slide-from-top",
+            closeOnConfirm: true,
+        },
+        function () {
+            saveDataDB()
+        }
+    );
+};

@@ -16,11 +16,9 @@ async function authLogin(){
     fetch("http://localhost:8080/api/v1/auth/login", requestOptions)
     .then(response => response.json())
     .then(data=>{
-      console.log(data);
       validAuth(data);
     })
     .catch(error => {
-      console.error(error)
     })
 }
 

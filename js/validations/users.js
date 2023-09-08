@@ -4,7 +4,7 @@ async function getListUsers() {
     let count = 1;
 
     try {
-        const response = await fetch("http://localhost:8080/api/user/get");
+        const response = await fetch("http://localhost:8080/api/user/get", reqOptionValid("GET"));
         const data = await response.json();
         for (const user of data) {
             const roleName = await idToRoleName(user.idRole);
@@ -42,7 +42,7 @@ async function getListUsers() {
 async function idToRoleName(idRole) {
     try {
         const response = await fetch(
-            "http://localhost:8080/api/role/getRoleName/" + idRole
+            "http://localhost:8080/api/role/getRoleName/" + idRole, reqOptionValid("GET")
         );
         const data = await response.json();
         return data.roleName;
@@ -72,7 +72,7 @@ async function inputRoles() {
 // This function is to mostrate every role was create
 async function getRoles() {
     try {
-        const response = await fetch("http://localhost:8080/api/role");
+        const response = await fetch("http://localhost:8080/api/role", reqOptionValid("GET"));
         const data = await response.json();
         return data;
     } catch (error) {
@@ -152,7 +152,7 @@ function enableDisableUser(id) {
         redirect: "follow", // Especifica el método PATCH
     };
 
-    fetch("http://localhost:8080/api/user/enable-desable/" + id, requestOptions)
+    fetch("http://localhost:8080/api/user/enable-desable/" + id, reqOptionValid("PATCH"))
         .then((response) => response.text())
         .then((data) => {
             if (data === "user disable") {

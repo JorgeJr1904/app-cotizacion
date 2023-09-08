@@ -6,6 +6,7 @@
 
 <head>
     <script src="js/validations/LoginAuthorization.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <title>Catálogo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +30,7 @@
 <body onload="loadLateralMenu()">
     <div id="lMenu-container">
     </div>
-    <div class="content-page-container full-reset custom-scroll-containers">
+    <div class="content-page-container full-reset custom-scroll-containers" id="pdf">
         <nav class="navbar-user-top full-reset">
             <ul class="list-unstyled full-reset">
                 <figure>
@@ -71,28 +72,17 @@
             <ul class="list-unstyled text-center list-catalog-container">
                 <li class="list-catalog">Categoría</li>
             </ul>
-            <div class="media media-hover">
-                <div class="media-left media-middle">
-                    <img class="media-object" src="assets/img/pdf.png" alt="Libro" width="48" height="48">
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">1 - Título</h4>
-                    <div class="pull-left">
-                        <strong>Autor<br>
-                            <strong>Año<br>
-                    </div>
-                    <p class="text-center pull-right">
-                        <a href="#!" class="btn btn-info btn-xs" style="margin-right: 10px;"><i
-                                class="zmdi zmdi-info-outline"></i> &nbsp;&nbsp; Descargar</a>
-                    </p>
-                </div>
-            </div>
+            <div id="quoteList"></div>
             <ul class="list-unstyled text-center list-catalog-container">
                 <li class="list-catalog">Categoría</li>
             </ul>
         </div>
     </div>
+    <script src="js/validations/catalog.js"></script>
     <script src="js/validations/getStoredUserName.js"></script>
+    <script src="js/validations/LateralMenu.js"></script>
+    <script src="js/validations/quoteToPDF.js"></script>
+    <script src="js/html2pdf.bundle.min.js"></script>
 </body>
 
 </html>

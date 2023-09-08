@@ -16,7 +16,7 @@ function reqOptionValid(method, data = null) {
 }
 
 async function validLogin(){
-    const response = await fetch("http://localhost:8080/api/validToken/v1/validation", reqOptionValid("POST", ""));
+    const response = await fetch("http://localhost:8080/api/validToken/v1/validation", reqOptionValid("POST"));
         const data = await response.text();
         if(data === "true"){
             return;

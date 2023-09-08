@@ -3,7 +3,7 @@ async function getListRoles() {
     let count = 1;
 
     try {
-        const response = await fetch("http://localhost:8080/api/role");
+        const response = await fetch("http://localhost:8080/api/role", reqOptionValid("GET"));
         const roles = await response.json();
         for (const role of roles) {
 
