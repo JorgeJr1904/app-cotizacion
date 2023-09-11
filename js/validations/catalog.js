@@ -68,7 +68,7 @@ async function setQuotes() {
             a.appendChild(document.createTextNode(" Descargar"));
 
             a.addEventListener("click", function() {
-                descargarDocumento();
+                quoteToPdf(quote.id);
             });
 
             p.appendChild(a);

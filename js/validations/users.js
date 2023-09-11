@@ -183,9 +183,11 @@ async function updatePass(){
         const dataQuote = await quoteResponse.text();
         if(dataQuote === "true"){
             updatePassSucces();
+        }if (dataQuote === "false") {
+            updatePassFail("La contraseña no es segura", "Debe tener almenos 8 letras, una mayuscula, una minuscula y un caracter especial");
         }
         else{
-            updatePassFail();
+            updatePassFail("Error al cambiar contraseña", "Porfavor Intentelo de nuevo");
         }
     }else{
         alert('Las contraseñas no coinciden');
@@ -336,10 +338,10 @@ function updatePassSucces() {
     });
 }
 
-function updatePassFail() {
+function updatePassFail(message, text) {
     swal({
-        title: "Error al cambiar contraseña",
-        text: "Porfavor intentalo de nuevo",
+        title: message,
+        text: text,
         type: "error",
         showCancelButton: false,
         confirmButtonColor: "green",
